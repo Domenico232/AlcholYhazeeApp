@@ -40,6 +40,8 @@ jobs:
 
       - name: Build del progetto
         run: npm run build
+        env:
+          VITE_BACKEND_URL: https://signoryahtzeebe.onrender.com
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
