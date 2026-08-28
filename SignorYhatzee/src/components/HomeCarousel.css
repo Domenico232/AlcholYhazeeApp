@@ -1,0 +1,136 @@
+.home-carousel-screen {
+  justify-content: center;
+  padding-top: 60px;
+  overflow: hidden;
+}
+
+/* ── 3D Carousel Container ───────────────────────── */
+.carousel-3d-container {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  height: 380px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ── Edge fade masks ─────────────────────────────── */
+.carousel-fade {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 90px;
+  z-index: 15;
+  pointer-events: none;
+}
+.carousel-fade--left {
+  left: 0;
+  background: linear-gradient(to right, var(--bg) 0%, transparent 100%);
+}
+.carousel-fade--right {
+  right: 0;
+  background: linear-gradient(to left, var(--bg) 0%, transparent 100%);
+}
+
+/* ── Individual Card Wrapper ─────────────────────── */
+.carousel-3d-card {
+  position: absolute;
+  width: 260px;
+  height: 330px;
+  will-change: transform, opacity;
+}
+
+/* ── Card content — shared layout ────────────────── */
+.game-card {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+  border-radius: var(--radius);
+  padding: 24px;
+}
+
+/* Ghost card (side cards) — no background, no border */
+.game-card--ghost {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+/* Active card — full glass-panel look + glow */
+.carousel-3d-card--active .game-card {
+  border-color: rgba(34, 197, 94, 0.3);
+  box-shadow:
+    0 8px 32px 0 rgba(0, 0, 0, 0.37),
+    0 0 50px -10px rgba(34, 197, 94, 0.2);
+}
+
+.game-card-emoji {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.game-card-name {
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+
+/* ── Navigation arrows ───────────────────────────── */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--text);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  opacity: 0.6;
+  transition: opacity .2s, background .2s, transform .2s;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.carousel-arrow:hover {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.18);
+  transform: translateY(-50%) scale(1.1);
+}
+.carousel-arrow.left  { left: 0; }
+.carousel-arrow.right { right: 0; }
+
+/* ── Dots ────────────────────────────────────────── */
+.carousel-dots {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.carousel-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  transition: background .3s, transform .3s, box-shadow .3s;
+}
+.carousel-dot.active {
+  background: var(--accent);
+  transform: scale(1.35);
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+}
+.carousel-dot:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.35);
+}
