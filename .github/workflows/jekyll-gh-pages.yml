@@ -1,28 +1,28 @@
 name: Deploy Vite App to GitHub Pages
 
 on:
-  # Esegui quando ci sono push sul branch principale (sostituisci "main" con "master" se necessario)
   push:
     branches: ["main"]
-
-  # Permette di avviare il deploy manualmente
   workflow_dispatch:
 
-# Imposta i permessi per il GITHUB_TOKEN
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Permette un solo deploy alla volta
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
-  # Job per il build
   build:
     runs-on: ubuntu-latest
+    
+    # Imposta la cartella di lavoro di default per tutti i comandi "run"
+    defaults:
+      run:
+        working-directory: ./SignorYhatzee
+
     steps:
       - name: Checkout del codice
         uses: actions/checkout@v4
@@ -32,6 +32,8 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
+          # Specifica il percorso del file di lock per la cache
+          cache-dependency-path: ./SignorYhatzee/package-lock.json
 
       - name: Installa le dipendenze
         run: npm ci
@@ -45,10 +47,9 @@ jobs:
       - name: Carica gli artefatti
         uses: actions/upload-pages-artifact@v3
         with:
-          # In base al tuo package.json, Vite esporta la build nella cartella 'dist'
-          path: './dist'
+          # Il percorso della cartella dist rispetto alla root del repo
+          path: './SignorYhatzee/dist'
 
-  # Job per il deploy
   deploy:
     environment:
       name: github-pages
